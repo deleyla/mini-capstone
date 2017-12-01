@@ -21,6 +21,12 @@ end
 p "Which product would you like more information on?"
 
 user_input = gets.chomp.to_i
+
+# use tty prompt
+# prompt = Prompt.new
+# prompt.select("Which product would you like more information on?")
+
+
 product_data = products[user_input]
 
 product_name = product_data["name"]
