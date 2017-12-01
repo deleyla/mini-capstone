@@ -20,4 +20,5 @@ class ProductsController < ApplicationController
     end
     render json: product_hashes
   end
+
 end
