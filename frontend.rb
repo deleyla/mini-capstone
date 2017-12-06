@@ -28,7 +28,7 @@ elsif user_input == '2'
 elsif user_input == '3'
   # make a new product in the db
   p "Let's make a new product!"
-  # ask for some user input
+  # ask for user input
   p "Tell me what the product's name is"
   product_name = gets.chomp
   p "Tell me what the product's price is"
@@ -38,7 +38,12 @@ elsif user_input == '3'
   p "Give me a description of the product"
   product_description = gets.chomp
   #take that user input and save it as a new product
+  #?key=value
+  #? calls the params hash
+  #key is determined in the products_controller.rb file, under the create method - in this case, the keys are name, price, image and description
+  #value is determined on this page above - it's the user input. 
   response = Unirest.post("#{base_url}/products?name=#{product_name}&price=#{product_price}&image=#{product_image}&description=#{product_description}")
+  #print the new product's information for the user to see
   pp response.body
 end
 

@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # # grab a single product from the db
+    # grab a single product from the db
     # product = Product.first
 
     #go to params hash and get the id
@@ -64,15 +64,16 @@ class ProductsController < ApplicationController
   end
 
   def create
+    # framework of information needed to create a new product
     product = Product.new(
       name: params['name'],
       price: params['price'],
       image: params['image'],
       description: params['description']
       )
-
+    # save the information from user input to create a new product
     product.save
-
+    # print the information as json
     render json: product.as_json
   end
 

@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get '/products' => 'products#index'
   # show action, one particular product, needs id wildcard to find in db
   get '/products/:id' => 'products#show'
-  # create action, make a new product, doesn't need an id wildcard because it hasn't been make yet
+  # create action, make a new product, doesn't need an id wildcard because it hasn't been made yet
   post '/products' => 'products#create'
 end
