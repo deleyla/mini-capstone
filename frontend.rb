@@ -1,20 +1,28 @@
 #require Unirest
 require 'unirest'
+#require pretty print
 require 'pp'
 
+#this is the base url that does not change. 
 base_url = "http://localhost:3000"
+#clears the terminal
 system "clear"
 
+#Welcome the user to the store
 p "Welcome to my store."
+#Provide the user with the options
 p "Choose an option"
 p "[1] see all the products"
 p "[2] see a particular recipe"
 p "[3] create a new product"
+p "[5] delete a product"
 
+#Get the user's input or selection based on the options provided above
 user_input = gets.chomp
 
 if user_input == '1'
   # show all the products
+  # in the routes file, /products calls the index method in the controller file. the index method calls all of the products so when we call this, it will call the method that is tied to this URL (i.e. the route)
   response = Unirest.get("#{base_url}/products")
   pp response.body
 elsif user_input == '2'
@@ -23,6 +31,7 @@ elsif user_input == '2'
   p "Enter the id for the item you would like to look at"
   product_id = gets.chomp
   # make a unirest call to get that item
+  # in the routes file, we indicate that the URL for the show method is products/:id, and we indicate that the id is determined in the show method by finding 'id' in the json. Therefore, when we get the product_id from the user, it is placed in the URL and calls whatever id is in the database. 
   response = Unirest.get("#{base_url}/products/#{product_id}")
   pp response.body
 elsif user_input == '3'
@@ -45,6 +54,12 @@ elsif user_input == '3'
   response = Unirest.post("#{base_url}/products?name=#{product_name}&price=#{product_price}&image=#{product_image}&description=#{product_description}")
   #print the new product's information for the user to see
   pp response.body
+elsif user_input == '5'
+  #ask the user which product they want to delete
+  p "Which product would you like to delete?"
+  product = gets.chomp
+  #make a call to the URL and delete that product
+  response = Unirest.delete("#{base_url}/products/#{product_id}")
 end
 
 

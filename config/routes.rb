@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   get '/products/:id' => 'products#show'
   # create action, make a new product, doesn't need an id wildcard because it hasn't been made yet
   post '/products' => 'products#create'
+  # update a specific product
+  patch '/products/:id' => 'photos#update'
+
+  
 end

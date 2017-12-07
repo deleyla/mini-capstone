@@ -77,5 +77,33 @@ class ProductsController < ApplicationController
     render json: product.as_json
   end
 
+  def update
+    # go to params hash and get the id
+    the_id = params['id']
+
+    # grab a single product based on the id
+    product = Product.find_by(id: the_id)
+
+    # update it
+    product = Product.update(
+      name: params['name'],
+      price: params['price'],
+      image: params['image'],
+      description: params['description']
+      )
+    # save the information from user input to create a new product
+    product.save
+    # print the information as json
+    render json: product.as_json
+  end
+
+  def destroy
+    #find a particular product in my db
+    the_id = params['id']
+    product = Product.find_by(id: the_id)
+    #destroy the selected product
+    product.destroy
+  end
+  
 
 end
