@@ -15,6 +15,7 @@ p "Choose an option"
 p "[1] see all the products"
 p "[2] see a particular recipe"
 p "[3] create a new product"
+p "[4] update a product"
 p "[5] delete a product"
 
 #Get the user's input or selection based on the options provided above
@@ -53,6 +54,30 @@ elsif user_input == '3'
   #value is determined on this page above - it's the user input. 
   response = Unirest.post("#{base_url}/products?name=#{product_name}&price=#{product_price}&image=#{product_image}&description=#{product_description}")
   #print the new product's information for the user to see
+  pp response.body
+elsif user_input == '4'
+  # ask the user for input
+  p "Which product would you like to update? Type in the ID"
+  product_id = gets.chomp
+  # make a unirest call to get that item
+  response = Unirest.get("#{base_url}/products/#{product_id}")
+  # get user input on what the user would like to update
+  p "Tell me what the product's new name is"
+  new_name = gets.chomp
+  p "Tell me what the product's new price is"
+  new_price = gets.chomp
+  p "Tell me what the product's new image filename is"
+  new_image = gets.chomp
+  p "Tell me what the product's new description is"
+  new_description = gets.chomp
+  #take that user input and update the product
+  #?key=value
+  #? calls the params hash
+  #key is determined in the products_controller.rb file, under the update method - in this case, the keys are name, price, image and description.
+  #value is determined on this page above - it's the user input.
+  response = Unirest.post("#{base_url}/products?name=#{new_name}&price=#{new_price}&image=#{new_image}&description=#{new_description}")
+  #print the updated product's information for the user to see
+  p "Here is the updated product information:"
   pp response.body
 elsif user_input == '5'
   #ask the user which product they want to delete
