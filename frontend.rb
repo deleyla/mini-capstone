@@ -57,6 +57,9 @@ elsif user_input == '3'
   pp response.body
 elsif user_input == '4'
   # ask the user for input
+  p "Here is a list of products available to update."
+  response = Unirest.get("#{base_url}/products/#{product_id}")
+  pp response.body
   p "Which product would you like to update? Type in the ID"
   product_id = gets.chomp
   # make a unirest call to get that item
@@ -75,11 +78,15 @@ elsif user_input == '4'
   #? calls the params hash
   #key is determined in the products_controller.rb file, under the update method - in this case, the keys are name, price, image and description.
   #value is determined on this page above - it's the user input.
-  response = Unirest.post("#{base_url}/products?name=#{new_name}&price=#{new_price}&image=#{new_image}&description=#{new_description}")
+  response = Unirest.patch("#{base_url}/products?name=#{new_name}&price=#{new_price}&image=#{new_image}&description=#{new_description}")
   #print the updated product's information for the user to see
   p "Here is the updated product information:"
   pp response.body
 elsif user_input == '5'
+  #list products available to delete
+  p "Here is a list of products available to delete."
+  response = Unirest.get("#{base_url}/products/#{product_id}")
+  pp response.body
   #ask the user which product they want to delete
   p "Which product would you like to delete?"
   product = gets.chomp
