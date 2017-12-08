@@ -85,10 +85,10 @@ class ProductsController < ApplicationController
     product = Product.find_by(id: the_id)
 
     # update it
-    product.name = params['name'],
-    product.price = params['price'],
-    product.image = params['image'],
-    product.description = params['description']
+    product.name = params['name'] || product.name
+    product.price = params['price'] || product.price
+    product.image = params['image'] || product.image
+    product.description = params['description'] || product.description
     # save the information from user input to create a new product
     product.save
     # print the information as json

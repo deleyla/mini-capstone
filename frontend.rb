@@ -56,6 +56,7 @@ elsif user_input == '3'
   #print the new product's information for the user to see
   pp response.body
 elsif user_input == '4'
+  the_params = {}
   # ask the user for input
   p "Here is a list of products available to update."
   response = Unirest.get("#{base_url}/products/#{product_id}")
@@ -66,19 +67,19 @@ elsif user_input == '4'
   response = Unirest.get("#{base_url}/products/#{product_id}")
   # get user input on what the user would like to update
   p "Tell me what the product's new name is"
-  new_name = gets.chomp
+  the_params ['name'] = gets.chomp
   p "Tell me what the product's new price is"
-  new_price = gets.chomp
+  the_params ['price'] = gets.chomp.to_i
   p "Tell me what the product's new image filename is"
-  new_image = gets.chomp
+  the_params ['image'] = gets.chomp
   p "Tell me what the product's new description is"
-  new_description = gets.chomp
+  the_params ['description'] = gets.chomp
   #take that user input and update the product
   #?key=value
   #? calls the params hash
   #key is determined in the products_controller.rb file, under the update method - in this case, the keys are name, price, image and description.
   #value is determined on this page above - it's the user input.
-  response = Unirest.patch("#{base_url}/products?name=#{new_name}&price=#{new_price}&image=#{new_image}&description=#{new_description}")
+  response = Unirest.patch("#{base_url}/products/#{product_id}", parameters: the_params)
   #print the updated product's information for the user to see
   p "Here is the updated product information:"
   pp response.body
