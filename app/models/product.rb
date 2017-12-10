@@ -21,16 +21,24 @@ class Product < ApplicationRecord
     sum = price + tax
   end
 
+  def availability
+    if price <0
+      p false
+    else
+      p true
+    end
+  end
+
   def as_json
     {
       id: id,
       name: name,
-      price: price,
       image: image,
-      description: description,
-      is_discounted: is_discounted,
+      price: price,
       tax: tax,
       total: total,
+      is_discounted: is_discounted,
+      description: description,
       availability: availability
     }
   end
