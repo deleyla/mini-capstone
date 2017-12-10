@@ -1,8 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first
-
+Product.create!([
+  {name: "orange resin earrings", price: "15.0", image: "orange_resin_earrings.jpg", description: "hand dipped in resin, these blood orange earrings are a unique addition to your jewelry collection.", availability: nil},
+  {name: "lavender honey soap", price: "8.0", image: "lavender_honey_soap.jpg", description: "this decadent smeling soap with the relaxing scent of lavender and sweet smell of honey is handmade with local goats milk.", availability: nil},
+  {name: "knitted scarf", price: "6.0", image: "knitted_scarf.jpg", description: "made of locally harvested wool, this scarf will keep you nice and warm on those chilly winter nights.", availability: nil},
+  {name: "lemon ginger tea", price: "1.0", image: "lemon_ginger_tea.jpg", description: "A non-caffeinated beverage, lemon ginger tea will soothe your sore throat instantly without keeping you up all night. That way you can get your much needed rest and heal!", availability: nil},
+  {name: "persian rose cake", price: "5.0", image: "persian_rose_cake.jpg", description: "A recipe that has been in the family for generations, this light and airy sweet is sure to delight the senses!", availability: nil},
+  {name: "organic bamboo notebook", price: "10.0", image: "organic_bamboo_notebook.jpg", description: "Made from bamboo found deep within the forests of China, this notebook is a beautiful addition to your library.", availability: nil},
+  {name: "Atlas Shrugged, first edition", price: "175.0", image: "atlas_shrugged_vintage.jpg", description: "Atlas Shrugged is a 1957 novel by Ayn Rand. Rand's fourth and last novel, it was also her longest, and the one she considered to be her magnum opus in the realm of fictionwriting.[1] Atlas Shrugged includes elements of science fiction, mystery, and romance, and it contains Rand's most extensive statement of Objectivism in any of her works of fiction. The book depicts a dystopian United States in which private businesses suffer under increasingly burdensome laws and regulations. Railroad executive Dagny Taggart and her lover, steel magnate Hank Rearden, struggle against \"looters\" who want to exploit their productivity, including Dagny's brother and Hank's wife. As Dagny and Hank fight the looters' efforts to control their business operations and confiscate their production, they realize a mysterious figure called John Galt is convincing other business leaders to abandon their companies and disappear. ", availability: nil}
+])
