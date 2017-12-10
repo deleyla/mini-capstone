@@ -32,4 +32,5 @@ class Product < ApplicationRecord
       tax: tax,
       total: total
     }
+  end
 end
