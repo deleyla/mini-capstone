@@ -1,4 +1,14 @@
 class Product < ApplicationRecord
+  #price -> numericality has to be a number larger than zero
+  #name -> unique
+  #description -> minimum of 10 characters
+
+  validates :price, presence: true
+  validates :price, numericality: { greater_than:0 }
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :description, presence: true
+  validates :description, length: { in: 10...500}
   
   # Create a model method called `is_discounted` that returns true if an item is under $2 and false otherwise.
   def is_discounted
