@@ -73,8 +73,14 @@ class ProductsController < ApplicationController
       )
     # save the information from user input to create a new product
     product.save
-    # print the information as json
-    render json: product.as_json
+
+    #happy path
+    if contact.save
+      render json: product.as_json
+    #sad path
+    else
+      render json: {errors: product.errors.full_messages}
+    end
   end
 
   def update
