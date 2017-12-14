@@ -44,7 +44,11 @@ class ProductsController < ApplicationController
 
   def index
     # get all products from my db
-    products = Product.all
+    # products = Product.all
+    # Change the index action to allow for searching by name.
+    the_search_term = params[:search_term]
+    # Change the index action to always return products sorted by id.
+    products = Product.all.order(:id => :asc).where("name LIKE ?","%#{the_search_term}%") 
     # show the user all the products in my db
     render json: products.as_json
   end

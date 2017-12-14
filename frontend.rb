@@ -13,6 +13,7 @@ p "Welcome to my store."
 #Provide the user with the options
 p "Choose an option"
 p "[1] see all the products"
+p "[1.1] search products"
 p "[2] see a particular recipe"
 p "[3] create a new product"
 p "[4] update a product"
@@ -25,6 +26,13 @@ if user_input == '1'
   # show all the products
   # in the routes file, /products calls the index method in the controller file. the index method calls all of the products so when we call this, it will call the method that is tied to this URL (i.e. the route)
   response = Unirest.get("#{base_url}/products")
+  pp response.body
+elsif user_input == '1.1'
+  # ask user for search term
+  p "Which product would you like to search for?"
+  search_input = gets.chomp
+  # send the search input to the params hash in the unirest call.
+  response = Unirest.get("#{base_url}/products", parameters: {search_term: search_input})
   pp response.body
 elsif user_input == '2'
   # get a particular product
