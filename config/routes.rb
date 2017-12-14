@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   patch '/products/:id' => 'products#update'
   # delete a specific product
   delete '/products/:id' => 'products#destroy'
+
+  # show all the suppliers
+  get '/suppliers' => 'suppliers#index'
 end
