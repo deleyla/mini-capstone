@@ -70,6 +70,7 @@ class ProductsController < ApplicationController
     product = Product.find_by(id: the_id)
     #destroy the selected product
     product.destroy
+    render json: {message: "You deleted the product"}
   end
 
   # def all_products

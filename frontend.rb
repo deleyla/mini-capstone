@@ -14,10 +14,15 @@ p "Welcome to my store."
 p "Choose an option"
 p "[1] see all the products"
 p "[1.1] search products"
-p "[2] see a particular recipe"
+p "[2] see a particular product"
 p "[3] create a new product"
 p "[4] update a product"
 p "[5] delete a product"
+p "[6] see all the suppliers"
+p "[7] see a particular supplier"
+p "[8] create a new supplier"
+p "[9] update a supplier"
+p "[10] destroy a supplier"
 
 #Get the user's input or selection based on the options provided above
 user_input = gets.chomp
@@ -37,7 +42,7 @@ elsif user_input == '1.1'
 elsif user_input == '2'
   # get a particular product
   # get user input for the product id
-  p "Enter the id for the item you would like to look at"
+  p "Enter the id for the product you would like to look at"
   product_id = gets.chomp
   # make a unirest call to get that item
   # in the routes file, we indicate that the URL for the show method is products/:id, and we indicate that the id is determined in the show method by finding 'id' in the json. Therefore, when we get the product_id from the user, it is placed in the URL and calls whatever id is in the database. 
@@ -94,17 +99,71 @@ elsif user_input == '4'
 elsif user_input == '5'
   #list products available to delete
   p "Here is a list of products available to delete."
-  response = Unirest.get("#{base_url}/products/#{product_id}")
+  response = Unirest.get("#{base_url}/products")
   pp response.body
   #ask the user which product they want to delete
   p "Which product would you like to delete?"
-  product = gets.chomp
+  product_id = gets.chomp
   #make a call to the URL and delete that product
   response = Unirest.delete("#{base_url}/products/#{product_id}")
+elsif user_input == '6'
+  response = Unirest.get("#{base_url}/suppliers")
+  pp response.body
+elsif user_input == '7'
+  p "Enter the id for the supplier you would like to look at"
+  supplier_id = gets.chomp
+  response = Unirest.get("#{base_url}/suppliers/#{supplier_id}")
+  pp response.body
+elsif user_input == '8'
+  # make a new supplier in the db
+  p "Let's make a new supplier!"
+  # ask for user input
+  p "Tell me what the supplier's name is"
+  supplier_name = gets.chomp
+  p "Tell me what the supplier's email is"
+  supplier_email = gets.chomp
+  p "Tell me what the supplier's phone number is"
+  supplier_phone_number = gets.chomp
+  #take that user input and save it as a new supplier
+  response = Unirest.post("#{base_url}/suppliers?name=#{supplier_name}&email=#{supplier_email}&phone_number=#{supplier_phone_number}")
+  #print the new supplier's information for the user to see
+  pp response.body
+elsif user_input == '9'
+  the_params = {}
+  # ask the user for input
+  p "Here is a list of suppliers available to update."
+  response = Unirest.get("#{base_url}/suppliers/#{product_id}")
+  pp response.body
+  p "Which supplier would you like to update? Type in the ID"
+  supplier_id = gets.chomp
+  # make a unirest call to get that item
+  response = Unirest.get("#{base_url}/supplier/#{supplier_id}")
+  # get user input on what the user would like to update
+  p "Tell me what the supplier's new name is"
+  the_params ['name'] = gets.chomp
+  p "Tell me what the supplier's new email is"
+  the_params ['email'] = gets.chomp
+  p "Tell me what the supplier's new phone number is"
+  the_params ['phone number'] = gets.chomp
+  #take that user input and update the supplier
+  response = Unirest.patch("#{base_url}/suppliers/#{supplier_id}", parameters: the_params)
+  #print the updated supplier's information for the user to see
+  p "Here is the updated supplier information:"
+  pp response.body
+elsif user_input == '10'
+   #list suppliers available to delete
+  p "Here is a list of suppliers available to delete."
+  response = Unirest.get("#{base_url}/suppliers")
+  pp response.body
+  #ask the user which supplier they want to delete
+  p "Which supplier would you like to delete?"
+  supplier_id = gets.chomp
+  #make a call to the URL and delete that supplier
+  response = Unirest.delete("#{base_url}/suppliers/#{supplier_id}")
 end
 
 
-# p "Here are the products available for purchase:"
+# p "Here are the product available for purchase:"
 # #make an http request to my app
 # response = Unirest.get("http://localhost:3000/all_products")
 # #show the user that data

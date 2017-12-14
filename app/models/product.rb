@@ -9,6 +9,12 @@ class Product < ApplicationRecord
   validates :name, uniqueness: true
   validates :description, presence: true
   validates :description, length: { in: 10...500}
+
+  def supplier
+    # an instance of supplier
+    # how can I find the supplier id of the selected product
+    Supplier.find_by(id: supplier_id)
+  end
   
   # Create a model method called `is_discounted` that returns true if an item is under $2 and false otherwise.
   def is_discounted

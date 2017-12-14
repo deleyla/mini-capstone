@@ -15,4 +15,12 @@ Rails.application.routes.draw do
 
   # show all the suppliers
   get '/suppliers' => 'suppliers#index'
+  # show a particular supplier
+  get '/suppliers/:id' => 'suppliers#show'
+  # create a new supplier
+  post '/suppliers' => 'suppliers#create'
+  # update a specific supplier
+  patch '/suppliers/:id' => 'suppliers#update'
+  #delete a specific supplier
+  delete '/suppliers/:id' => 'suppliers#destroy'
 end
