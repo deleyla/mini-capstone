@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  belongs_to :supplier
+  has_many :images
   #price -> numericality has to be a number larger than zero
   #name -> unique
   #description -> minimum of 10 characters
