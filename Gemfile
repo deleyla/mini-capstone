@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# User ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
 gem 'seed_dump'
 
 gem 'geocoder'
