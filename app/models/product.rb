@@ -55,7 +55,8 @@ class Product < ApplicationRecord
       total: total,
       is_discounted: is_discounted,
       description: description,
-      availability: availability
+      availability: availability,
+      supplier: supplier.as_json
     }
   end
 end
