@@ -7,7 +7,7 @@ require 'pp'
 base_url = "http://localhost:3000"
 
 while true
-  #clears the terminal
+  # #clears the terminal
   system "clear"
 
   #Welcome the user to the store
@@ -212,6 +212,7 @@ while true
     jwt = ""
     Unirest.clear_default_headers()
     p "You have successfully logged out"
+    break
   elsif user_input == 'exit'
     break
   end
