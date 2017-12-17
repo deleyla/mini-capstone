@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'user_token' => 'user_token#create'
   get '/all_products' => 'products#all_products'
   get '/show-the-product' => 'products#show'
   get '/one-of-the-products/:id' => 'products#segment'

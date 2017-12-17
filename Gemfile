@@ -8,6 +8,9 @@ end
 # User ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Authentification with JSON Web Tokens
+gem 'knock'
+
 gem 'seed_dump'
 
 gem 'geocoder'
