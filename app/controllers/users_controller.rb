@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+
+  def index
+    # get all users from my db
+    users = User.all
+    # show the user all the users in my db
+    render json: users.as_json
+  end
+  
   def create
     user = User.new(
       name: params[:name],

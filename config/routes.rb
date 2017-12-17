@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   #delete a specific supplier
   delete '/suppliers/:id' => 'suppliers#destroy'
 
+  # show all users
+  get '/users' => 'users#index'
   # create a new user
   post '/users' => 'users#create'
 end
