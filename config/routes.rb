@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   get '/users' => 'users#index'
   # create a new user
   post '/users' => 'users#create'
+
+  # create a new order
+  post '/orders' => 'orders#create'
 end
