@@ -56,7 +56,6 @@ class ProductsController < ApplicationController
     # update it
     product.name = params['name'] || product.name
     product.price = params['price'] || product.price
-    product.image = params['image'] || product.image
     product.description = params['description'] || product.description
     # save the information from user input to create a new product
     product.save
