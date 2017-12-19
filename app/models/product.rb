@@ -60,7 +60,7 @@ class Product < ApplicationRecord
       description: description,
       availability: availability,
       supplier: supplier.as_json,
-      images: image_id
+      image_id: image_id
     }
   end
 end
