@@ -3,10 +3,18 @@ class ProductsController < ApplicationController
   def index
     # get all products from my db
     # products = Product.all
+
+    #filter by search term and by price
+    if params[:sort_by_price] == 'true'
+      the_sort_attribute = :price
+    else 
+      the_sort_attribute = :id
+    end
+
     # Change the index action to allow for searching by name.
     the_search_term = params[:search_term]
     # Change the index action to always return products sorted by id.
-    products = Product.all.order(:id => :asc).where("name LIKE ?","%#{the_search_term}%") 
+    products = Product.where("name LIKE?", "%#{search}%").order(the_sort_attribute)
 
     # show the user all the products in my db
     render json: products.as_json
@@ -32,13 +40,14 @@ class ProductsController < ApplicationController
       name: params['name'],
       price: params['price'],
       image: params['image'],
-      description: params['description']
+      description: params['description'],
+      availability: params['availability']
       )
     # save the information from user input to create a new product
     product.save
 
     #happy path
-    if contact.save
+    if product.save
       render json: product.as_json
     #sad path
     else
@@ -59,8 +68,13 @@ class ProductsController < ApplicationController
     product.description = params['description'] || product.description
     # save the information from user input to create a new product
     product.save
-    # print the information as json
-    render json: product.as_json
+
+    #happy path
+    if product.save
+      render json: product.as_json
+    #sad path
+    else
+      render json: {errors: product.errors.full_messages}
   end
 
   def destroy

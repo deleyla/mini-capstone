@@ -51,14 +51,15 @@ class Product < ApplicationRecord
     {
       id: id,
       name: name,
-      # images: images,
+      # image: image,
       price: price,
       tax: tax,
       total: total,
       is_discounted: is_discounted,
       description: description,
       availability: availability,
-      supplier: supplier.as_json
+      supplier: supplier.as_json,
+      images: images
     }
   end
 end

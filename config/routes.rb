@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   # create a new user
   post '/users' => 'users#create'
 
+  # show all orders
+  get '/orders' => 'orders#index'
   # create a new order
   post '/orders' => 'orders#create'
 end
