@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :supplier
   has_many :images
+  belongs_to :category_product
   #price -> numericality has to be a number larger than zero
   #name -> unique
   #description -> minimum of 10 characters
@@ -59,7 +60,7 @@ class Product < ApplicationRecord
       description: description,
       availability: availability,
       supplier: supplier.as_json,
-      images: images
+      images: image_id
     }
   end
 end
