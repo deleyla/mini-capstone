@@ -1,7 +1,9 @@
 class Product < ApplicationRecord
+  has_many :orders
   belongs_to :supplier
   has_many :images
   belongs_to :category_product
+  has_many :categories, through :category_product
   #price -> numericality has to be a number larger than zero
   #name -> unique
   #description -> minimum of 10 characters
@@ -12,6 +14,22 @@ class Product < ApplicationRecord
   validates :name, uniqueness: true
   validates :description, presence: true
   validates :description, length: { in: 10...500}
+
+  def as_json
+    {
+      id: id,
+      name: name,
+      # image: image,
+      price: price,
+      tax: tax,
+      total: total,
+      is_discounted: is_discounted,
+      description: description,
+      availability: availability,
+      supplier: supplier.as_json,
+      images: image_id
+    }
+  end
 
   def supplier
     # an instance of supplier
@@ -48,19 +66,4 @@ class Product < ApplicationRecord
     end
   end
 
-  def as_json
-    {
-      id: id,
-      name: name,
-      # image: image,
-      price: price,
-      tax: tax,
-      total: total,
-      is_discounted: is_discounted,
-      description: description,
-      availability: availability,
-      supplier: supplier.as_json,
-      image_id: image_id
-    }
-  end
 end
