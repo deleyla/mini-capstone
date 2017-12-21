@@ -16,6 +16,7 @@ while true
   p "Choose an option"
   p "[1] see all the products"
   p "[1.1] search products"
+  p "[1.2] sear for products in a particular category"
   p "[2] see a particular product"
   p "[3] create a new product"
   p "[4] update a product"
@@ -44,6 +45,13 @@ while true
     search_input = gets.chomp
     # send the search input to the params hash in the unirest call.
     response = Unirest.get("#{base_url}/products", parameters: {search_term: search_input})
+    pp response.body
+  elsif user_input == '1.2'
+    # show them a bunch of products but ONLY the ones in a particular category
+    p "what is the id of the category you want to look at?"
+    user_category_id = gets.chomp
+    response = Unirest.get("localhost:3000/products?category_id_input=#{user_category_id}")
+
     pp response.body
   elsif user_input == '2'
     # get a particular product
