@@ -29,6 +29,8 @@ while true
   p "[11] create a new user"
   p "[12] login"
   p "[13] log out"
+  p "[14] add an item to your shopping cart"
+  p "[15] view items in the shopping cart"
   p "type 'exit' to leave"
 
   #Get the user's input or selection based on the options provided above
@@ -194,7 +196,7 @@ while true
         password_confirmation: password_confirmation
         }
       )
-    pp response.body
+    user = response.body
   elsif user_input == '12'
     # make a new json web token
     # retrieve user's e-mail for login
@@ -214,13 +216,32 @@ while true
     jwt = response.body["jwt"]
     # Include the jwt in the headers of any future web requests
     Unirest.default_header("Authorization", "Bearer #{jwt}")
-
+    p "You have successfully logged in"
     pp response.body
   elsif user_input == '13'
     jwt = ""
     Unirest.clear_default_headers()
     p "You have successfully logged out"
     break
+  elsif user_input == '14'
+    # add an item to the shopping cart
+    p "Let's add an item to your shopping cart!"
+    # ask for user input
+    p "What is the product_id of the item you would like to cart?"
+    product_id = gets.chomp
+    p "How many of these item would you like to cart?"
+    quantity = gets.chomp
+    response = Unirest.post("#{base_url}/carted_products", 
+    parameters: {
+        product_id: product_id,
+        quantity: quantity
+        }
+      ) 
+    pp response.body
+  elsif user_input == '15'
+    #this will show the carted products for the user
+    response = Unirest.get("#{base_url}/carted_products")
+    pp response.body
   elsif user_input == 'exit'
     break
   end

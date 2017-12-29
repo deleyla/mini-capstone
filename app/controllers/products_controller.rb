@@ -1,21 +1,22 @@
 class ProductsController < ApplicationController
   before_action :authenticate_admin, only: [:create, :update, :destroy]
 
+
   def index
     # get all products from my db
-    products = Product.all
+    # products = Product.all
 
     #filter by search term and by price
-    # if params[:sort_by_price] == 'true'
-    #   the_sort_attribute = :price
-    # else 
-    #   the_sort_attribute = :id
-    # end
+    if params[:sort_by_price] == 'true'
+      the_sort_attribute = :price
+    else 
+      the_sort_attribute = :id
+    end
 
     # Change the index action to allow for searching by name.
-    # the_search_term = params[:search_term]
+    the_search_term = params[:search_term]
     # Change the index action to always return products sorted by id.
-    # products = Product.where("name LIKE?", "%#{the_search_term}%").order(the_sort_attribute)
+    products = Product.where("name LIKE?", "%#{the_search_term}%").order(the_sort_attribute)
 
     # category = Category.find_by(id: params[:category_id_input])
     # products = category.products

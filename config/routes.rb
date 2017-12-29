@@ -39,4 +39,9 @@ Rails.application.routes.draw do
   get '/orders' => 'orders#index'
   # create a new order
   post '/orders' => 'orders#create'
+
+  # show current users carted products
+  get '/carted_products' => 'carted_products#index'
+  # add a product to the shopping cart
+  post '/carted_products' => 'carted_products#create'
 end
