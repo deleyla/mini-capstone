@@ -4,17 +4,16 @@
   <!-- Vue.js -->
   <meta charset="UTF-8">
   <title>Mini-Capstone Store Application</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link rel="stylesheet" href="index.css">
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="index.js" defer></script>
+  
 </head>
 <body>
   <div id="vue-app">
@@ -40,8 +39,6 @@
       </ul>
     </div>
   </nav>
-
-  <button v-on:click="console.log('click worked')">click me</button>
   <router-view></router-view>
 </div>
 </body>
@@ -54,7 +51,6 @@
      
     </div>
   <input type="submit" v-on:click.native="runSomething()">
-  <h1 v-on:click="console.log('hihih');">aaaa</h1>
   </div>
 </template>
 
@@ -94,7 +90,7 @@
 <template id="new-product-page">
   <div class="vue-component">
     <div class="container">
-      <!-- eate a new product</h1>
+      Create a new product</h1>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -106,41 +102,22 @@
         <label>Price:</label>
         <input type="text" class="form-control" v-model="price">
       </div>
-      <div class="form-group">
-        <label>Tax:</label>
-        <input type="text" class="form-control" v-model="tax">
-      </div>      
-      <div class="form-group">
-        <label>Total:</label>
-        <input type="text" class="form-control" v-model="total">
-      </div>
-      <div class="form-group">
-        <label>Discount?:</label>
-        <input type="text" class="form-control" v-model="isDiscounted">
       </div>
       <div class="form-group">
         <label>Description:</label>
         <input type="text" class="form-control" v-model="description">
       </div>
       <div class="form-group">
-        <label>Availability:</label>
-        <input type="text" class="form-control" v-model="availability">
-      </div>
-      <div class="form-group">
-        <label>Supplier:</label>
-        <input type="text" class="form-control" v-model="supplier">
-      </div>
-      <div class="form-group">
         <label>Images:</label>
         <input type="text" class="form-control" v-model="images">
-      </div> -->
+      </div>
       <button class="btn btn-primary" v-on:click="addProduct()">Product Creation Button</button>
     </div>
   </div>
 </template>
 
 <!-- Login Form -->
-<!-- <template id="login-page">
+<template id="login-page">
   <div class="vue-component">
     <div class="container">
       <h1>Login</h1>
@@ -158,4 +135,4 @@
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
   </div>
-</template> -->
+</template>
