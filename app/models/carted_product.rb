@@ -9,4 +9,5 @@ class CartedProduct < ApplicationRecord
       product: product.as_json,
       quantity: quantity
     }
+  end
 end

@@ -1,63 +1,161 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-<link rel="stylesheet" href="index.css">
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<title>Mini-Capstone Store Application</title>
-</head>
+  <!-- Vue.js -->
+  <meta charset="UTF-8">
+  <title>Mini-Capstone Store Application</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="index.js" defer></script>
 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="index.js" defer></script>
+</head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<h2>Products Available For Purchase</h2>
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="lavenderhoneysoap.jpg" alt="Lavender Honey Soap">
-    <div class="card-body">
-      <h5 class="card-title">Lavender Honey Soap, $8</h5>
-      <p class="card-text">This decadent smeling soap with the relaxing scent of lavender and sweet smell of honey is handmade with local goats milk.</p>
-      <p class="card-text"><small class="text-muted">Currently In Stock</small></p>
+  <div id="vue-app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navigation</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
     </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="orangeresinearrings.jpg" alt="Orange Resin Earrings">
-    <div class="card-body">
-      <h5 class="card-title">Orange Resin Earrings, $15</h5>
-      <p class="card-text">Hand dipped in resin, these blood orange earrings are a unique addition to your jewelry collection.</p>
-      <p class="card-text"><small class="text-muted">Currently In Stock</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="knittedscarf.jpg" alt="Knitted Scarf">
-    <div class="card-body">
-      <h5 class="card-title">Knitted Scarf, $15</h5>
-      <p class="card-text">Made of locally harvested wool, this scarf will keep you nice and warm on those chilly winter nights.</p>
-      <p class="card-text"><small class="text-muted">Currently In Stock</small></p>
-    </div>
-  </div>
+  </nav>
+
+  <button v-on:click="console.log('click worked')">click me</button>
+  <router-view></router-view>
 </div>
 </body>
 </html>
+
+<template id="home-page">
+  <div class="vue-component">
+    <h1>{{ message }}</h1>
+    <div class ="row">
+     
+    </div>
+  <input type="submit" v-on:click.native="runSomething()">
+  <h1 v-on:click="console.log('hihih');">aaaa</h1>
+  </div>
+</template>
+
+
+
+<!-- Signup Form -->
+<template id="signup-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Signup</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password confirmation:</label>
+        <input type="password" class="form-control" v-model="passwordConfirmation">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<!-- New Product Template -->
+<template id="new-product-page">
+  <div class="vue-component">
+    <div class="container">
+      <!-- eate a new product</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="name" value="name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="price">
+      </div>
+      <div class="form-group">
+        <label>Tax:</label>
+        <input type="text" class="form-control" v-model="tax">
+      </div>      
+      <div class="form-group">
+        <label>Total:</label>
+        <input type="text" class="form-control" v-model="total">
+      </div>
+      <div class="form-group">
+        <label>Discount?:</label>
+        <input type="text" class="form-control" v-model="isDiscounted">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="description">
+      </div>
+      <div class="form-group">
+        <label>Availability:</label>
+        <input type="text" class="form-control" v-model="availability">
+      </div>
+      <div class="form-group">
+        <label>Supplier:</label>
+        <input type="text" class="form-control" v-model="supplier">
+      </div>
+      <div class="form-group">
+        <label>Images:</label>
+        <input type="text" class="form-control" v-model="images">
+      </div> -->
+      <button class="btn btn-primary" v-on:click="addProduct()">Product Creation Button</button>
+    </div>
+  </div>
+</template>
+
+<!-- Login Form -->
+<!-- <template id="login-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Login</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template> -->

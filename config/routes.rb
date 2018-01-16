@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # investigate why I made these four routes - 1.15.18
   post 'user_token' => 'user_token#create'
   get '/all_products' => 'products#all_products'
   get '/show-the-product' => 'products#show'
