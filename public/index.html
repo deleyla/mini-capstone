@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Vue.js -->
   <meta charset="UTF-8">
   <title>Mini-Capstone Store Application</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
-
-  <!-- Bootstrap CSS -->
-  
 </head>
+
 <body>
+
+<!-- Navigation Bar -->
   <div id="vue-app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navigation</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link" href="#/signup">SignUp</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <a class="nav-link" href="#/logout">Logout</a>
         </li>
       </ul>
     </div>
@@ -44,17 +46,59 @@
 </body>
 </html>
 
+<!-- Home Page -->
 <template id="home-page">
   <div class="vue-component">
-    <h1>{{ message }}</h1>
+    <!-- Search Box -->
+    Search Products:<input type="text" v-model="searchTerm" list="products">
+    <!-- Add autocomplete to search box -->
+    <datalist id="products">
+      <option v-for="product in products">{{ product.name }}</option>
+    </datalist>
+
+    Search Price:<input type="text" v-model="searchPrice">
+    <br>
+    <!-- Sort Buttons  -->
+    <button v-on:click="sortByAttribute('name')">sort by product name</button>
+    <button v-on:click="sortByAttribute('price')">sort by product price</button>
+
     <div class ="row">
-     
+      <transition-group name="fade">
+      <div v-for="product in sortedProducts" v-bind:key="product.id" v-if="isValidProduct(product)" class="col-sm-6">
+        <div class="card">
+          <img class="product-image" v-bind:src="product.image" width="200px">
+              <div class="card-body">
+                <h5 class="product-name">{{ product.name }}</h5>
+                <h5 class="product-price">{{ product.price }}</h5>
+                <p class="product-description">{{ product.description }}</p>
+                <p class="product-availability">Available? <small class="text-muted">{{ product.availability }}</small></p>
+              </div>
+          </div>
+        </div>
+      </div>
+      </transition-group>
     </div>
-  <input type="submit" v-on:click.native="runSomething()">
-  </div>
 </template>
 
-
+<!-- Products Page -->
+<template id="show-product-page">
+  <div class="vue-component">
+      <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+             <img class="product-image" v-bind:src="product.image">
+              <div class="card-body">
+                <h5 class="product-name">{{ product.name }}</h5>
+                <h5 class="product-price">{{ product.price }}</h5>
+                <p class="product-description">{{ product.description }}</p>
+                <p class="product-availability"><small class="text-muted">{{ product.availability }}</small></p>
+              </div>
+            </div>
+          </div>
+        <!-- make the loop in here -->
+      </div>
+  </div>
+</template>
 
 <!-- Signup Form -->
 <template id="signup-page">
@@ -96,7 +140,7 @@
       </ul>
       <div class="form-group">
         <label>Name:</label>
-        <input type="text" class="form-control" v-model="name" value="name">
+        <input type="text" class="form-control" v-model="name">
       </div>
       <div class="form-group">
         <label>Price:</label>
@@ -111,7 +155,37 @@
         <label>Images:</label>
         <input type="text" class="form-control" v-model="images">
       </div>
-      <button class="btn btn-primary" v-on:click="addProduct()">Product Creation Button</button>
+      <button class="btn btn-primary" v-on:click="addProduct()">Create a New Product</button>
+    </div>
+  </div>
+</template>
+
+<!-- Edit Product Template -->
+<template id="edit-product-page">
+  <div class="vue-component">
+    <div class="container">
+      Edit a product</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="product.name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="product.price">
+      </div>
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="product.description">
+      </div>
+      <div class="form-group">
+        <label>Images:</label>
+        <input type="text" class="form-control" v-model="product.images">
+      </div>
+      <button class="btn btn-primary" v-on:click="editProduct()">Edit this Product</button>
     </div>
   </div>
 </template>

@@ -15,7 +15,7 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :description, presence: true
-  validates :description, length: { in: 10...500}
+  # validates :description, length: { in: 10...500}
 
   def as_json
     {
@@ -29,7 +29,8 @@ class Product < ApplicationRecord
       description: description,
       availability: availability,
       supplier: supplier.as_json,
-      images: image_id
+      images: image_id,
+      image: image
     }
   end
 

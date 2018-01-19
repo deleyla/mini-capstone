@@ -7,17 +7,17 @@ class ProductsController < ApplicationController
     # products = Product.all
 
     #filter by search term and by price
-    if params[:sort_by_price] == 'true'
-      the_sort_attribute = :price
-    else 
-      the_sort_attribute = :id
-    end
+    # if params[:sort_by_price] == 'true'
+    #   the_sort_attribute = :price
+    # else 
+    #   the_sort_attribute = :id
+    # end
 
     # Change the index action to allow for searching by name.
     the_search_term = params[:search_term]
     # Change the index action to always return products sorted by id.
-    products = Product.where("name LIKE?", "%#{the_search_term}%").order(the_sort_attribute)
-
+    # products = Product.where("name LIKE?", "%#{the_search_term}%").order(the_sort_attribute)
+    products = Product.order(:id => :asc)
     # category = Category.find_by(id: params[:category_id_input])
     # products = category.products
 
@@ -66,13 +66,13 @@ class ProductsController < ApplicationController
 
   def update
     # go to params hash and get the id
-    the_id = params['id']
+    id = params['id']
 
     # grab a single product based on the id
-    product = Product.find_by(id: the_id)
+    product = Product.find_by(id: id)
 
     # update it
-    if product.update(
+    if product.update!(
       name: params[:name],
       price: params[:price],
       # image: params['image'],
@@ -87,8 +87,8 @@ class ProductsController < ApplicationController
 
   def destroy
     #find a particular product in my db
-    the_id = params['id']
-    product = Product.find_by(the_id)
+    id = params['id']
+    product = Product.find_by(id: id)
     #destroy the selected product
     product.destroy
     render json: {message: "You deleted the product"}

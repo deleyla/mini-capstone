@@ -4,16 +4,46 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: "Products Available For Purchase"
+      searchTerm: "",
+      searchPrice: "",
+      sortAttribute: 'name',
+      products: [],
+      sortAsc: true
     };
   },
   created: function() {
+    console.log('home page');
+    axios.get("/products").then(function(response) {
+      this.products = response.data;
+    }.bind(this));
   },
   methods: {
-    runSomething: function() {
-    }
+    isValidProduct: function(inputProduct) {
+      console.log('testing method');
+      var validName = inputProduct.name.includes(this.searchTerm);
+      var validPrice = inputProduct.price.includes(this.searchPrice);
+      return validName && validPrice;
+    },
+    sortByAttribute: function(inputAttribute) {
+      console.log('testing sort method');
+      // take the variable and change it to the price
+      this.sortAsc = !this.sortAsc;
+      this.sortAttribute = inputAttribute;
+    } 
   },
-  computed: {}
+  computed: {
+    sortedProducts: function() {
+      if (this.sortAsc) {
+        return this.products.sort(function(product1,product2) {
+          return product1[this.sortAttribute].localeCompare(product2[this.sortAttribute]);
+        }.bind(this));
+      } else {
+        return this.products.sort(function(product1,product2) {
+          return product2[this.sortAttribute].localeCompare(product1[this.sortAttribute]);
+        }.bind(this));
+      }
+    }
+  }
 };
 
 // // Signup Vue.js
@@ -37,7 +67,7 @@ var SignupPage = {
         password_confirmation: this.passwordConfirmation
       };
       axios
-        .post("/v1/users", params)
+        .post("/users", params)
         .then(function(response) {
           router.push("/login");
         })
@@ -49,6 +79,8 @@ var SignupPage = {
     }
   }
 };
+
+
 // // Login vue.js
 var LoginPage = {
   template: "#login-page",
@@ -82,6 +114,34 @@ var LoginPage = {
     }
   }
 };
+
+// Logout vue.js
+var LogoutPage = {
+  created: function() {
+    axios.defaults.headers.common["Authorization"] = undefined;
+    localStorage.removeItem("jwt");
+    router.push("/");
+  }
+};
+
+// Show Product Page vue.js
+var ShowProductPage = {
+  template: "#show-product-page",
+  data: function() {
+    return {
+      product: {}
+    };
+  },
+  created: function() {
+    console.log('in show product');
+    axios.get('/products/' + this.$route.params.id).then(function(response) {
+      this.product = response.data;
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
 // New Product Page vue.js
 var NewProductPage = {
   template: "#new-product-page",
@@ -121,6 +181,46 @@ var NewProductPage = {
   }
 };
 
+
+// Edit Product Page vue.js
+var EditProductPage = {
+  template: "#edit-product-page",
+  data: function() {
+    return {
+      product: {},
+      errors: []
+    };
+  },
+  methods: {
+    editProduct: 
+    function() {
+      var params = {
+        name: this.product.name,
+        price: this.product.price,
+        description: this.product.description,
+        images: this.product.images
+      };
+      axios
+        .patch("/products/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  },
+  created: function() {
+    console.log('created component');
+    axios.get("/products/" + this.$route.params.id).then(function(response) {
+      this.product = response.data;
+    }.bind(this));
+  }
+};
+
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
@@ -128,8 +228,14 @@ var router = new VueRouter({
     { path: "/signup", component: SignupPage },
     // // route to login page
     { path: "/login", component: LoginPage },
+    // route to logout page
+    { path: "/logout", component: LogoutPage },
     // route to create new product
-    { path: "/products/new", component: NewProductPage }
+    { path: "/products/new", component: NewProductPage },
+    // route to edit a product
+    { path: "/products/:id/edit", component: EditProductPage },
+    // route to show a product
+    { path: "/products/:id", component: ShowProductPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
@@ -138,5 +244,11 @@ var router = new VueRouter({
 
 var app = new Vue({
   el: "#vue-app",
-  router: router
+  router: router,
+  created: function() {
+    var jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      axios.defaults.headers.common["Authorization"] = jwt;
+    }
+  }
 });
